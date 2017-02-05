@@ -63,7 +63,7 @@ public class DiscPlacer : MonoBehaviour
 
 
 	private static System.Threading.Thread _thread = null;
-	private static IntPair _computerMove = null;
+	private static IntPair? _computerMove = null;
 
 	private static void StartMoveSearch()
 	{
@@ -73,14 +73,14 @@ public class DiscPlacer : MonoBehaviour
 
 	public static bool ComputerMoveFound()
 	{
-		return _computerMove != null; //.HasValue;
+		return _computerMove.HasValue;
 	}
 
 	public static void ExecuteComputerMove()
 	{
 		Debug.Log ("ExecuteComputerMove");
-		int x = _computerMove._x;
-		int y = _computerMove._y;
+		int x = _computerMove.Value._x;
+		int y = _computerMove.Value._y;
 		_computerMove = null;
 
 		_board.MakeMove(x, y);

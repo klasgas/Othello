@@ -60,8 +60,7 @@ namespace OthelloLogic
 		public static IntPair FindMove(Board boardBeforeMove)
 		{
 			InitBoardPool ();
-			UnityEngine.Debug.Log("InitBoardPool KLAR");
-			//GC.Collect ();
+			ObjectPool<List<IntPair>>.Instance.Clear ();
 
 			uint searchDepth = 5;
 			
@@ -105,7 +104,7 @@ namespace OthelloLogic
 			}
 			else
 			{
-				ArrayList allMoves = boardBeforeMove.GetAllLegalMoves();
+				var allMoves = boardBeforeMove.GetAllLegalMoves();
 				
 				//Board boardBeforeMove = new Board(board);
 				//Board boardBeforeMove = CloneBoard(board);

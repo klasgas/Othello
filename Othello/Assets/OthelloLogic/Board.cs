@@ -43,6 +43,24 @@ namespace OthelloLogic
 					_squares[x][y] = new Square();
 				}
 			}
+
+			/*
+
+			_squares2 = new Square.SquareValue[8][];
+			for (int i = 0; i < 8; i++)
+			{
+				_squares2[i] = new Square.SquareValue[8];
+			}
+
+			for (int x = 0; x < 8; x++)
+			{
+				for (int y = 0; y < 8; y++)
+				{
+					_squares2[x][y] = Square.SquareValue.Empty;
+				}
+			}
+			*/	
+
 		}
 
 		public void InitFromOther(Board other)
@@ -78,9 +96,10 @@ namespace OthelloLogic
 			_lastMoveCoordinates = other._lastMoveCoordinates;
 		}
 
-		public ArrayList GetAdjacentSquares(int x, int y)
+/*
+		public List<IntPair> GetAdjacentSquares(int x, int y)
 		{
-			ArrayList squares = new ArrayList();
+			List<IntPair> squares = new List<IntPair>();
 			
 			int lowestX = x - 1;
 			if (x == 0)
@@ -120,7 +139,8 @@ namespace OthelloLogic
 			
 			return squares;
 		}
-		
+*/		
+
 		public bool LineCanBeFlipped(int x, int y, int dx, int dy, Square.SquareValue playerColor)
 		{
 			bool first = true;
@@ -254,9 +274,11 @@ namespace OthelloLogic
 			}
 		}
 		
-		public ArrayList GetAllLegalMoves()
+		public List<IntPair> GetAllLegalMoves()
 		{
-			ArrayList legalMoves = new ArrayList(); // Prova att ha en ObjectPool med endast en ArrayList. Eller: Prova att returnera med yield.
+			var legalMoves = ObjectPool<List<IntPair>>.Instance.GetObject ();
+			legalMoves.Clear ();
+			//List<IntPair> legalMoves = new List<IntPair>(); // Prova att ha en ObjectPool med endast en ArrayList. Eller: Prova att returnera med yield.
 			for (int x = 0; x < 8; x++)
 			{
 				for (int y = 0; y < 8; y++)
@@ -271,6 +293,7 @@ namespace OthelloLogic
 			return legalMoves;
 		}
 
+		/*
 		public IEnumerable<IntPair> GetAllLegalMoves2()
 		{
 			ObjectPool<IntPair>.Instance.Clear ();
@@ -292,7 +315,7 @@ namespace OthelloLogic
 			}
 			//return legalMoves;
 		}
-
+*/
 		
 		public bool GameIsOver()
 		{
@@ -348,8 +371,13 @@ namespace OthelloLogic
 		
 		// data
 		public Square[][] _squares;
+		//public Square.SquareValue[][] _squares2; ersätta _squares med denna?
+
 		public Square.SquareValue _currentPlayer;
 		public IntPair _lastMoveCoordinates;
+
+
+		//_squares = new Square[8][];
 	}
 	
 	

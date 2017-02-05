@@ -17,13 +17,13 @@ namespace OthelloLogic
 		public float _score;
 	}
 	
-	public /*struct*/ class IntPair
+	public struct /*class*/ IntPair
 	{
-		public IntPair()
-		{
-			_x = 0;
-			_y = 0;
-		}
+		//public IntPair()
+		//{
+		//	_x = 0;
+		//	_y = 0;
+		//}
 
 		public IntPair(int x, int y)
 		{
