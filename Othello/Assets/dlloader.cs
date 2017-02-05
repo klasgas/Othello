@@ -15,6 +15,7 @@ public class dlloader : MonoBehaviour {
 		Debug.Log (c.GetInfo ());
 
 		board = new OthelloLogic.Board ();
+		board.SetupInitialPosition ();
 
 		DiscPlacer.SetPosition (board);
 	}

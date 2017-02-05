@@ -11,11 +11,6 @@ namespace OthelloLogic
 		public Board()
 		{
 			InitSquaresArray();
-			_squares[3][3].SetValue(Square.SquareValue.Black);
-			_squares[4][4].SetValue(Square.SquareValue.Black);
-			_squares[3][4].SetValue(Square.SquareValue.White);
-			_squares[4][3].SetValue(Square.SquareValue.White);
-			
 
 			// Svart b鰎jar
 			_currentPlayer = Square.SquareValue.Black;
@@ -23,6 +18,14 @@ namespace OthelloLogic
 			_lastMoveCoordinates = new IntPair ();
 			_lastMoveCoordinates._x = -1;
 			_lastMoveCoordinates._y = -1;
+		}
+
+		public void SetupInitialPosition()
+		{
+			_squares[3][3].SetValue(Square.SquareValue.Black);
+			_squares[4][4].SetValue(Square.SquareValue.Black);
+			_squares[3][4].SetValue(Square.SquareValue.White);
+			_squares[4][3].SetValue(Square.SquareValue.White);
 		}
 		
 		public void InitSquaresArray()
