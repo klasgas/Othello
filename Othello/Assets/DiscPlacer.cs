@@ -40,7 +40,12 @@ public class DiscPlacer : MonoBehaviour
 
 	public static bool MoveIsLegal(int x, int y)
 	{
-		return _board.MoveIsLegal (x, y);
+		if (_board._currentPlayer == Square.SquareValue.Black) {
+			return _board.MoveIsLegal (x, y);
+		} else {
+			Debug.Log ("vänta på din tur");
+			return false;
+		}
 	}
 
 	public static void TryMove(int x, int y)
