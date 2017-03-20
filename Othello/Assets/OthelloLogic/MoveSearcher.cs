@@ -62,7 +62,7 @@ namespace OthelloLogic
 			InitBoardPool ();
 			ObjectPool<List<IntPair>>.Instance.Clear ();
 
-			uint searchDepth = 5;
+			uint searchDepth = 2; // 5
 			
 			Move bestMove = new Move(-1, -1, float.NegativeInfinity);
 			

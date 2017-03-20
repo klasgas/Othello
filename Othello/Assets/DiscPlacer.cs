@@ -115,7 +115,7 @@ public class DiscPlacer : MonoBehaviour
 
 					Square.SquareValue discValue = GetDiscValue(disc);
 
-					if(x == 0 && y == 0)
+					if(x == 0 && y == 0) 
 					{
 						Debug.Log (string.Format("discValue={0}", discValue));
 					}
@@ -128,7 +128,7 @@ public class DiscPlacer : MonoBehaviour
 					{
 						if(value != discValue)
 						{
-							RotateDisc(disc);
+							RotateDisc(disc, true);
 						}
 					}
 				}
@@ -146,15 +146,34 @@ public class DiscPlacer : MonoBehaviour
 		}
 	}
 
-	private static void RotateDisc(GameObject disc)
+	private static void RotateDisc(GameObject disc, bool animate)
 	{
-		disc.transform.Rotate(new Vector3(180, 0f, 0), Space.Self);
+		var animator = disc.GetComponent<Animator> ();
+
+		//disc.transform.Rotate(new Vector3(180, 0f, 0), Space.Self);
 		var discValueComponent = disc.GetComponent<DiscValue> ();
 
 		if (discValueComponent.value == Square.SquareValue.Black) {
 			discValueComponent.value = Square.SquareValue.White;
+			if(animate)
+			{
+				animator.SetTrigger ("FlipToWhite");
+			}
+			else
+			{
+				animator.Play ("IdleWhite");
+			}
+
 		} else {
 			discValueComponent.value = Square.SquareValue.Black;
+			if(animate)
+			{
+				animator.SetTrigger ("FlipToBlack");
+			}
+			else
+			{
+				animator.Play ("IdleBlack");
+			}
 		}
 		
 	}
@@ -166,17 +185,40 @@ public class DiscPlacer : MonoBehaviour
 			GameObject disc = Instantiate (Resources.Load ("Disc")) as GameObject; 
 			disc.GetComponent<DiscValue> ().value = Square.SquareValue.Black; // disc prefab has black side up
 
-//			Debug.Log (string.Format("PLACING {0} DISC AT {1}, {2}", value, x, y));
+//			disc.transform.position = new Vector3 ((x * 1.1f), 0.6f, (-y * 1.1f));
+			disc.GetComponent<DiscValue> ().value = Square.SquareValue.Black; // disc prefab has black side up
+			
+			GameObject discParent = new GameObject("discParent");
+			
+			disc.transform.parent = discParent.transform;
+			discParent.transform.position = new Vector3 ((x * 1.1f), 0.6f, (-y * 1.1f));
 
-			disc.transform.position = new Vector3 ((x * 1.1f), 0.6f, (-y * 1.1f));
 			
 			if (value == Square.SquareValue.White) {
 		//		Debug.Log (string.Format ("ROTATING NEW DISC TO WHITE"));
-				RotateDisc (disc);
+				RotateDisc (disc, false);
 			}
 
 			_discs [x, y] = disc;
 		}
+	}
+
+	public static void TestAnimation()
+	{
+		int x = 0;
+		int y = 0;
+
+		GameObject disc = Instantiate (Resources.Load ("Disc")) as GameObject; 
+		disc.GetComponent<DiscValue> ().value = Square.SquareValue.Black; // disc prefab has black side up
+
+		GameObject discParent = new GameObject("discParent");
+
+		disc.transform.parent = discParent.transform;
+		discParent.transform.position = new Vector3 ((x * 1.1f), 0.6f, (-y * 1.1f));
+
+
+		var animator = disc.GetComponent<Animator> ();
+		animator.SetTrigger ("FlipToWhite");
 	}
 
 

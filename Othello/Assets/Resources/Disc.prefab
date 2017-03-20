@@ -45,6 +45,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 493916}
   - 114: {fileID: 11481316}
+  - 95: {fileID: 9504012}
   m_Layer: 0
   m_Name: Disc
   m_TagString: Untagged
@@ -152,6 +153,23 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 153134}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &9504012
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 175594}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2c3897057083d9149b8cccd0a746d032, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &11481316
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -205,6 +223,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: .899999976
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 2c3897057083d9149b8cccd0a746d032, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 175594}

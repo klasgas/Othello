@@ -50,7 +50,6 @@
      <Compile Include="Assets\DiscPlacer.cs" />
      <Compile Include="Assets\DiscValue.cs" />
      <Compile Include="Assets\MouseDetector.cs" />
-     <Compile Include="Assets\OthelloGrejs.cs" />
      <Compile Include="Assets\OthelloLogic\Board.cs" />
      <Compile Include="Assets\OthelloLogic\Move.cs" />
      <Compile Include="Assets\OthelloLogic\MoveSearcher.cs" />
@@ -58,7 +57,6 @@
      <Compile Include="Assets\OthelloLogic\ObjectPool.cs" />
      <Compile Include="Assets\OthelloLogic\PositionEvaluator.cs" />
      <Compile Include="Assets\OthelloLogic\Square.cs" />
-     <Compile Include="Assets\PositionHandler.cs" />
      <Compile Include="Assets\TileData.cs" />
      <Compile Include="Assets\dlloader.cs" />
  <Reference Include="UnityEngine.UI">

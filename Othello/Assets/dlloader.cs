@@ -18,6 +18,7 @@ public class dlloader : MonoBehaviour {
 		board.SetupInitialPosition ();
 
 		DiscPlacer.SetPosition (board);
+		DiscPlacer.TestAnimation ();
 	}
 	
 	// Update is called once per frame
