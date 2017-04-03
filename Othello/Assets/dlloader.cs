@@ -18,15 +18,26 @@ public class dlloader : MonoBehaviour {
 		board.SetupInitialPosition ();
 
 		DiscPlacer.SetPosition (board);
-		DiscPlacer.TestAnimation ();
+		//DiscPlacer.TestAnimation ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (DiscPlacer.ComputerMoveFound ()) {
-			DiscPlacer.ExecuteComputerMove();
+			if(DiscPlacer.TimeSinceSearchStartIsMoreThanASecond())
+			{
+				DiscPlacer.ExecuteComputerMove();
+			}
+			else
+			{
+				WaitAndThenExecuteComputerMove();
+			}
 		}
-		//Debug.Log ("dlloader Update");
+	}
+
+	IEnumerator WaitAndThenExecuteComputerMove() {
+		yield return new WaitForSeconds(1);  // to let animations finish playing.
+		DiscPlacer.ExecuteComputerMove();
 	}
 }
 

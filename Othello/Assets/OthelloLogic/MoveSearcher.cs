@@ -12,7 +12,7 @@ namespace OthelloLogic
 	{
 		private static List<Board> _boardPool;
 		private static int _boardIndex = 0;
-		private static int _boardCount = 1000000;
+		private static int _boardCount = 100000;
 
 		public static void InitBoardPool()
 		{
@@ -52,10 +52,6 @@ namespace OthelloLogic
 			board.InitFromOther(other);
 			return board;
 		}
-
-
-
-
 
 		public static IntPair FindMove(Board boardBeforeMove)
 		{

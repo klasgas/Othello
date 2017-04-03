@@ -9,6 +9,10 @@ public class DiscPlacer : MonoBehaviour
 	public static Board _board;
 	private static GameObject[,] _discs = new GameObject[8, 8];
 
+	private static System.Threading.Thread _thread = null;
+	private static IntPair? _computerMove = null;
+	private static float startTimeForSearch;
+
 	private static void TraceDiscValues()
 	{
 		var sb = new System.Text.StringBuilder();
@@ -61,19 +65,28 @@ public class DiscPlacer : MonoBehaviour
 			Debug.Log(_board.TraceBoard ("after move"));
 			TraceDiscValues();
 
+			//StartCoroutine(WaitAndThenStartMoveSearch);
 			StartMoveSearch();
 		}
 
 	}
 
+	IEnumerator WaitAndThenStartMoveSearch() {
+		yield return new WaitForSeconds(1);  // to let animations finish playing.
+		StartMoveSearch();
+	}
 
-	private static System.Threading.Thread _thread = null;
-	private static IntPair? _computerMove = null;
 
 	private static void StartMoveSearch()
 	{
 		_thread = new System.Threading.Thread(Run);
 		_thread.Start ();
+		startTimeForSearch = Time.time;
+	}
+
+	public static bool TimeSinceSearchStartIsMoreThanASecond()
+	{
+		return (Time.time - startTimeForSearch) > 1; 
 	}
 
 	public static bool ComputerMoveFound()
@@ -88,8 +101,19 @@ public class DiscPlacer : MonoBehaviour
 		int y = _computerMove.Value._y;
 		_computerMove = null;
 
-		_board.MakeMove(x, y);
-		AddAndFlipDiscsAccordingToBoard();
+		if (!_board.CurrentPlayerMustPass()) {
+			_board.MakeMove (x, y);
+			AddAndFlipDiscsAccordingToBoard();
+			//if(_board.CurrentPlayerMustPass())
+			{
+				//Messenger.Broadcast(GameEvent.PLAYER_MUST_PASS);
+			}
+		}
+		{
+			// gui: computer must pass.
+			//Messenger.Broadcast(GameEvent.PLAYER_MUST_PASS);
+		}
+
 	}
 
 	private static void Run()
@@ -104,6 +128,7 @@ public class DiscPlacer : MonoBehaviour
 
 	public static void AddAndFlipDiscsAccordingToBoard()
 	{
+		//Messenger.Broadcast(GameEvent.PLAYER_MUST_PASS);
 		for(int y = 0; y < 8; y++)
 		{
 			for(int x = 0; x < 8; x++)

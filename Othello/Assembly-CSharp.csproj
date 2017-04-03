@@ -48,8 +48,12 @@
   <ItemGroup>
      <Compile Include="Assets\CreateBoard.cs" />
      <Compile Include="Assets\DiscPlacer.cs" />
+     <Compile Include="Assets\DiscSoundPlayer.cs" />
      <Compile Include="Assets\DiscValue.cs" />
+     <Compile Include="Assets\GameEvent.cs" />
+     <Compile Include="Assets\Messenger.cs" />
      <Compile Include="Assets\MouseDetector.cs" />
+     <Compile Include="Assets\OKButtonScript.cs" />
      <Compile Include="Assets\OthelloLogic\Board.cs" />
      <Compile Include="Assets\OthelloLogic\Move.cs" />
      <Compile Include="Assets\OthelloLogic\MoveSearcher.cs" />
@@ -58,6 +62,7 @@
      <Compile Include="Assets\OthelloLogic\PositionEvaluator.cs" />
      <Compile Include="Assets\OthelloLogic\Square.cs" />
      <Compile Include="Assets\TileData.cs" />
+     <Compile Include="Assets\UIController.cs" />
      <Compile Include="Assets\dlloader.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
