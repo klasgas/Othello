@@ -4,15 +4,15 @@ using UnityEngine.UI;
 
 public class OKButtonScript : MonoBehaviour {
 
+	public UnityEngine.UI.Text PopupText;
+
+	public delegate void OnCloseCallback ();
+
+	public OnCloseCallback OnClose;
+
 	public void ShowPopup(string text)
 	{
-		var button = gameObject.GetComponent<UnityEngine.UI.Button> ();
-		if (button == null) {
-			Debug.Log ("button är null");
-		}
-		var buttonText = button.GetComponent<UnityEngine.UI.Text>();
-
-		buttonText.text = text;
+		PopupText.text = text;
 
 		gameObject.SetActive (true);
 	}
@@ -20,5 +20,9 @@ public class OKButtonScript : MonoBehaviour {
 	public void ClosePopup()
 	{
 		gameObject.SetActive (false);
+
+		if (OnClose != null) {
+			OnClose ();
+		}
 	}
 }

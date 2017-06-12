@@ -89,7 +89,7 @@ namespace OthelloLogic
 		}
 		
 		
-		public static float MinMaxSearch(Board boardBeforeMove, uint depth)
+		public static float MinMaxSearch(Board boardBeforeMove, uint depth) 
 		{
 			float bestScore = float.NegativeInfinity;
 			

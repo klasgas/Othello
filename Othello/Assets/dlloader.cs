@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using testproj;
+//using testproj;
 using OthelloLogic;
 
 public class dlloader : MonoBehaviour {
@@ -10,9 +10,9 @@ public class dlloader : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Debug.Log(System.Environment.Version);
-		var c = new testproj.MyClass ();
-		Debug.Log (c.GetInfo ());
+//		Debug.Log(System.Environment.Version);
+//		var c = new testproj.MyClass ();
+//		Debug.Log (c.GetInfo ());
 
 		board = new OthelloLogic.Board ();
 		board.SetupInitialPosition ();

@@ -34,7 +34,6 @@ public class DiscPlacer : MonoBehaviour
 				}
 
 				sb.Append(s);
-				//Debug.Write(square.ToString());
 			}
 			sb.AppendLine("");
 		}
@@ -54,21 +53,19 @@ public class DiscPlacer : MonoBehaviour
 
 	public static void TryMove(int x, int y)
 	{
-		Debug.Log ("TRYMove");
 		if (MoveIsLegal (x, y)) {
-			Debug.Log ("move is legal");
-			Debug.Log (string.Format ("making move x={0}, y={1}", x, y));
 			_board.MakeMove(x, y);
-			//var move = OthelloLogic.MoveSearcher.FindMove(_board);
-			//_board.MakeMove(move._x, move._y);
 			AddAndFlipDiscsAccordingToBoard();
 			Debug.Log(_board.TraceBoard ("after move"));
 			TraceDiscValues();
 
-			//StartCoroutine(WaitAndThenStartMoveSearch);
+			if(_board.GameIsOver())
+			{
+				Messenger.Broadcast(GameEvent.GAME_OVER);
+			}
+
 			StartMoveSearch();
 		}
-
 	}
 
 	IEnumerator WaitAndThenStartMoveSearch() {
@@ -77,7 +74,7 @@ public class DiscPlacer : MonoBehaviour
 	}
 
 
-	private static void StartMoveSearch()
+	public static void StartMoveSearch()
 	{
 		_thread = new System.Threading.Thread(Run);
 		_thread.Start ();
@@ -101,34 +98,35 @@ public class DiscPlacer : MonoBehaviour
 		int y = _computerMove.Value._y;
 		_computerMove = null;
 
-		if (!_board.CurrentPlayerMustPass()) {
+		if (_board.CurrentPlayerMustPass ()) {
+			Messenger.Broadcast(GameEvent.COMPUTER_MUST_PASS);
+		}
+		else
+		{
 			_board.MakeMove (x, y);
 			AddAndFlipDiscsAccordingToBoard();
-			//if(_board.CurrentPlayerMustPass())
+
+			if(_board.GameIsOver())
 			{
-				//Messenger.Broadcast(GameEvent.PLAYER_MUST_PASS);
+				Messenger.Broadcast(GameEvent.GAME_OVER);
 			}
-		}
-		{
-			// gui: computer must pass.
-			//Messenger.Broadcast(GameEvent.PLAYER_MUST_PASS);
+			else if(_board.CurrentPlayerMustPass())
+			{
+				Messenger.Broadcast(GameEvent.PLAYER_MUST_PASS);
+			}
 		}
 
 	}
 
 	private static void Run()
 	{
-		//Debug.Log ("RUN");
 		_computerMove = null;
 		_computerMove = MoveSearcher.FindMove(new Board(_board));
-		//Debug.Log ("_computerMove FOUND");
 	}
 
-	// Update is called once per frame
 
 	public static void AddAndFlipDiscsAccordingToBoard()
 	{
-		//Messenger.Broadcast(GameEvent.PLAYER_MUST_PASS);
 		for(int y = 0; y < 8; y++)
 		{
 			for(int x = 0; x < 8; x++)
@@ -164,7 +162,6 @@ public class DiscPlacer : MonoBehaviour
 	private static Square.SquareValue GetDiscValue(GameObject disc)
 	{
 		if (disc == null) {
-			Debug.Log ("disc is null");
 			return Square.SquareValue.Empty;
 		} else {
 			return disc.GetComponent<DiscValue>().value;
@@ -175,7 +172,6 @@ public class DiscPlacer : MonoBehaviour
 	{
 		var animator = disc.GetComponent<Animator> ();
 
-		//disc.transform.Rotate(new Vector3(180, 0f, 0), Space.Self);
 		var discValueComponent = disc.GetComponent<DiscValue> ();
 
 		if (discValueComponent.value == Square.SquareValue.Black) {
@@ -208,9 +204,7 @@ public class DiscPlacer : MonoBehaviour
 
 		if (value != Square.SquareValue.Empty) {
 			GameObject disc = Instantiate (Resources.Load ("Disc")) as GameObject; 
-			disc.GetComponent<DiscValue> ().value = Square.SquareValue.Black; // disc prefab has black side up
 
-//			disc.transform.position = new Vector3 ((x * 1.1f), 0.6f, (-y * 1.1f));
 			disc.GetComponent<DiscValue> ().value = Square.SquareValue.Black; // disc prefab has black side up
 			
 			GameObject discParent = new GameObject("discParent");
@@ -220,7 +214,6 @@ public class DiscPlacer : MonoBehaviour
 
 			
 			if (value == Square.SquareValue.White) {
-		//		Debug.Log (string.Format ("ROTATING NEW DISC TO WHITE"));
 				RotateDisc (disc, false);
 			}
 
