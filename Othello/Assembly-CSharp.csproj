@@ -54,6 +54,12 @@
      <Compile Include="Assets\Messenger.cs" />
      <Compile Include="Assets\MouseDetector.cs" />
      <Compile Include="Assets\OKButtonScript.cs" />
+     <Compile Include="Assets\OthelloAI\DoubleStrategy.cs" />
+     <Compile Include="Assets\OthelloAI\IPositionScoreStrategy.cs" />
+     <Compile Include="Assets\OthelloAI\MoveFinder.cs" />
+     <Compile Include="Assets\OthelloAI\RandomHelper.cs" />
+     <Compile Include="Assets\OthelloAI\RandomStrategy.cs" />
+     <Compile Include="Assets\OthelloAI\WeightedStrategy.cs" />
      <Compile Include="Assets\OthelloLogic\Board.cs" />
      <Compile Include="Assets\OthelloLogic\Move.cs" />
      <Compile Include="Assets\OthelloLogic\MoveSearcher.cs" />
